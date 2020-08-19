@@ -16,11 +16,12 @@ namespace MediatR_Console
         public void Ping(string ip)
         {
             Console.WriteLine($"Pinging: {ip}");
-            _mediator.Publish(new PingEvent($"Ping Service publishes notification PingEvent ({ip})"));
+            PingEvent pingEvent = new PingEvent($"Ping Service publishes notification PingEvent ({ip})");
+            _mediator.Publish(pingEvent);
 
             Console.WriteLine($"MediatR command LookupRequest returned: {_mediator.Send(new LookupRequest()).Result}");
 
-            LookupResult lookupResult = _mediator.Send(new LookupRequest2(ip)).Result;
+            LookupResult2 lookupResult = _mediator.Send(new LookupRequest2(ip)).Result;
             if(lookupResult.Success)
                 Console.WriteLine($"MediatR command LookupRequest2 returned: {lookupResult.Name}");
             else

@@ -1,16 +1,17 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 
 namespace MediatR_Console
 {
     public class PingEvent : INotification
     {
         public string Message { get; }
+
         public PingEvent(string message)
         {
             Message = message;
@@ -33,7 +34,7 @@ namespace MediatR_Console
         public Task Handle(PingEvent notification, CancellationToken cancellationToken)
         {
             _logger.LogWarning($"PingEvent Handled: {notification.Message}");
-            return null;
+            return Task.CompletedTask;
         }
     }
 }
